@@ -58,12 +58,17 @@ void headinsert(LinkList L, ElemType e)
 //list node
 void ListNode(LinkList L)
 {
+	if (L->next == NULL)
+	{
+		printf("NONE in list");
+	}
 	LinkList p = L->next;
 	while (p!= 0)
 	{
-		printf("%d\n", *p);
+		printf("%d\n",p->data);
 		p = p->next;
 	}
+	printf("\n");
 }
 
 //get tail
@@ -80,10 +85,41 @@ LinkList get_tail(LinkList L)
 //end insertion
 void endinsert(LinkList L, ElemType e)
 {
+	LinkList tail = get_tail(L);
 	LinkList l1 = (LinkList)malloc(sizeof(Node));
 	l1->data = e;
-	l1->next = L->next;
-	L->next = l1;
+	l1->next = NULL;
+	tail->next = l1;
+}
+
+//delete node by valves
+void delbyVal(LinkList L, ElemType target)
+{
+	LinkList p = L;
+	while (p->next != NULL && p->next->data != target)
+	{
+		p = p->next;
+	}
+	if (p->next == NULL)
+	{
+		printf("NOT FOUND");
+		return;
+	}
+	LinkList del = p->next;
+	p->next = p->next->next;
+	free(del);
+}
+
+//get length
+int getlength(LinkList L)
+{
+	int count = 0;
+	while (L->next != NULL)
+	{
+		count++;
+		L = L->next;
+	}
+	return count;
 }
 
 int main()
@@ -92,6 +128,6 @@ int main()
 	headinsert(list, 10);
 	headinsert(list, 20);
 	headinsert(list, 30);
-	endinsert(get_tail(list), 5);
+	endinsert(list, 5);
 	ListNode(list);
 }
