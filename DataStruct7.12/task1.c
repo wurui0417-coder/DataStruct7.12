@@ -122,6 +122,21 @@ int getlength(LinkList L)
 	return count;
 }
 
+//get element by position
+LinkList Getelem(LinkList L, int p)
+{
+	if (p < 1)
+		return NULL;
+	LinkList l=L->next;
+	int j = 1;
+	while (l != NULL && j < p)
+	{
+		l = l->next;
+		j++;
+	}
+	return l;
+}
+
 int main()
 {
 	LinkList list = iniList();
